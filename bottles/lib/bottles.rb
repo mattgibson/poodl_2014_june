@@ -4,12 +4,9 @@ puts instructions(__FILE__)
 class Bottles
 
   def verse(number)
-    case number
-    when 0
-      "#{number_representation(number).to_s.capitalize} #{word_for_bottles(number)} of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, #{number_representation(next_number_of_bottles(number))} #{word_for_bottles(number)} of beer on the wall.\n"
-    else
-      "#{number_representation(number).to_s.capitalize} #{word_for_bottles(number)} of beer on the wall, #{number} #{word_for_bottles(number)} of beer.\nTake #{word_for_what_to_take_down(number)} down and pass it around, #{number_representation(next_number_of_bottles(number))} #{word_for_bottles(next_number_of_bottles(number))} of beer on the wall.\n"
-    end
+    "#{number_representation(number).to_s.capitalize} #{word_for_bottles(number)} of beer on the wall, "+
+        "#{number_representation(number)} #{word_for_bottles(number)} of beer.\n#{thing_to_do_next(number)}, "+
+        "#{number_representation(next_number_of_bottles(number))} #{word_for_bottles(next_number_of_bottles(number))} of beer on the wall.\n"
   end
 
   def verses(end_verse, start_verse)
@@ -37,7 +34,7 @@ class Bottles
   end
 
   def thing_to_do_next(number)
-
+    number == 0 ? "Go to the store and buy some more" : "Take #{word_for_what_to_take_down(number)} down and pass it around"
   end
 
 end
