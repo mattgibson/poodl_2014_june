@@ -13,35 +13,27 @@ class Farm
   end
 
   def get_animals
-    ::Animal.all(animals)
+    ::Animal.all(animals).collect {|item| item || NilAnimal.new }
   end
 
   def verse(animal = nil)
     %Q[Old MacDonald had a farm, E-I-E-I-O,
-And on that farm he had #{articlized_species(animal)}, E-I-E-I-O,
-With #{articlized_sound(animal)} #{sound(animal)} here and #{articlized_sound(animal)} #{sound(animal)} there,
-Here #{articlized_sound(animal)}, there #{articlized_sound(animal)}, everywhere #{articlized_sound(animal)} #{sound(animal)},
+And on that farm he had #{animal.species.articlize}, E-I-E-I-O,
+With #{animal.sound.articlize} #{animal.sound} here and #{animal.sound.articlize} #{animal.sound} there,
+Here #{animal.sound.articlize}, there #{animal.sound.articlize}, everywhere #{animal.sound.articlize} #{animal.sound},
 Old MacDonald had a farm, E-I-E-I-O.]
   end
 
-  def articlized_species(animal)
-    if animal == nil
-      "a <silence>"
-    else
-      animal.species.articlize
-    end
-  end
-
-  def articlized_sound(animal)
-    sound(animal).articlize
-  end
-
-  def sound(animal)
-    if animal == nil
-      "<silence>"
-    else
-      animal.sound
-    end
-  end
 end
 
+class NilAnimal
+
+  def species
+    "<silence>"
+  end
+
+  def sound
+    "<silence>"
+  end
+
+end
